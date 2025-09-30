@@ -1,0 +1,20 @@
+Ryan Ellis - Document which expenses should be included (e.g., rent, payroll, inventory, utilities).
+
+Items to have at a minimum:
+
+1. rent
+2. Payroll and Benefits
+3. Cumulative Revenue Stream
+4. Utilities
+5. Emergency Fund
+6. Insurance
+7. Advertising
+
+Items for more in-depth analysis may not apply to all businesses:
+
+1. Seasonal Bonuses
+2. Inventory
+3. Shipping costs
+4. Split revenue streams
+5. Taxes
+6. Loans/Credit
