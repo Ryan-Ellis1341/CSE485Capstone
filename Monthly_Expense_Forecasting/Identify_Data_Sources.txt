@@ -1,0 +1,40 @@
+Ryan Ellis - Identify data sources
+
+Potential Data Required from Users:
+
+	Company Data:
+		1. Name
+		2. Size
+		3. Location
+		4. Departments
+		5. Fiscal Year start/end dates
+
+	Income Data:
+		1. Previous revenue
+		2. Specific Product sale info
+		3. Seasonal Changes
+
+	Expense Data:
+		1. Payroll & benefits
+		2. Rent
+		3. Utilities
+		4. Insurance
+		5. Taxes
+		6. Loans/Credit
+		7. Advertising
+
+	Potential Misc.:
+		1. Emergency Fund
+		2. Shipping
+		3. Ordering
+		4. External Storage
+
+
+Data types the AI should be able to handle:
+
+1. Numeric Values
+2. Boolean Values
+3. Names/Strings
+4. Date Time
+5. CSV Files
+6. Currency Type
