@@ -1,0 +1,25 @@
+#30 Prioritize which scenarios should be supported first and define the parameters and assumptions
+Top Priority to least Priority
+1.)Budget Creation
+
+Assumptions: Business already has past budget data to import; only supports USD and English in MVP.
+Constraints: Up to 3 budget templates; max 50 budget categories.
+
+2.)Expense Tracking
+
+Assumptions: Users manually upload CSV bank statements in MVP.
+Constraints: Max file size 5MB; AI categorization only for top 10 expense categories.
+
+3.)Forecasting
+
+Assumptions: The forecast is only short-term (3 months).
+Constraints: Error margin of plus or minus 15% is acceptable.
+
+4.)Reporting
+Assumptions: Only basic PDF export, no fancy dashboards yet.
+Constraints: Reports capped at 10 pages.
+
+5.)User Management
+Assumptions: One admin per account.
+Constraints: No SSO or OAuth at MVP.
+

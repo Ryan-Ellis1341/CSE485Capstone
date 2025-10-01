@@ -1,0 +1,13 @@
+#32 Specifiy data ranges, default values, and constraints
+
+Field Name		Range		Default Value		Constraints
+
+Total Revenue 		0 - 1,000,000 		0		Must be greater than 0
+
+Payroll Expense		0 - 500,000		0		Max 30%  of total budget
+
+Marketing Expense	0- 200,000		0		Cannot exceed payroll  
+
+Forecast Duration	1 - 36			12		Whole numbers only
+
+Number of Employees	1-250			2		Whole Numbers only	          
