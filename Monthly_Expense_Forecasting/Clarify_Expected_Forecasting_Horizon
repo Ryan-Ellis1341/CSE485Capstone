@@ -1,0 +1,12 @@
+Ryan Ellis - Clarify expected forecasting horizon.
+
+As far as how data should be broken up and organized I see a few rather clear divisions.
+The first 3 being the most basic, 1. Money going out(Expenses), 2. Money coming in(Revenue), 3. Company Info.
+From those 3 you will have sub catagories that get broken down such as: name, size, and location for company data.
+
+One of the most important splits to emphasize is the income vs expenses to ensure no confusion is had by machine or user as to 
+money coming in or leaving.  This could be seperated easieat via clear seperate tabs, ensuring the info could
+never even be shown at the same time.
+
+Another item to keep in mind is the clarity to what of that data is willing to be shared with the AI
+for learning and what is not allowed to be shared, and that line could be somewhere between those 3 catagories.
