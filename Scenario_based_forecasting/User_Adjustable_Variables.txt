@@ -1,0 +1,18 @@
+Varshini Muniswaran- Determine which variables users should be able to adjust
+
+Main functions:
+⦁	Budget Creation-> users will need to adjust budget categories and amount per category
+⦁	Expense Tracking-> Not much to adjust
+⦁	Forecasting-> Most scenario variables. Forecast horizon and acceptable error margin
+⦁	Reporting-> Output customization
+⦁	User Management-> No user-adjustable variables
+
+Mapping variables to main functions and applying constraints:
+Limit to 5-6 adjustable variables to avoid overwhelming users; all adjustments should fall within reasonable bounds.
+
+We get:
+1.	Revenue Growth %-> Users simulate "What if" scenarios with an increase or decrease in sales
+2.	Fixed costs-> Adjusting fixed overheads like rent, utilities
+3.	Variable costs-> Adjust inventory cost assumptions
+4.	Seasonality-> Users can adjust for expected holidays or seasonal spikes/dips
+5.	Expense Category Allocation-> Allocate % spend across top categories 
