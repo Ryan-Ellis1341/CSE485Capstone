@@ -1,0 +1,19 @@
+Ansh Hemang Dani — Baseline Assumptions
+
+Define simple baseline seasonal rules (+/– %) that can be applied.
+
+---
+
+Simple Assumptions Table :
+
+Period                  | Effect         | Applies To             | Reason                             |
+------------------------|----------------|------------------------|------------------------------------|
+Thanksgiving week       | +30%           | Food Revenue, COGS     | Known retail/restaurant spike      | 
+Dec weeks 2–4           | +25%           | All Revenue, Staffing  | Holiday uplift, industry benchmarks|
+Early Jan (weeks 1–2)   | –15%           | All Revenue            | Post holiday slowdown              |
+Summer (June–July)      | –10%           | Beverage Revenue       | Seasonal dip in some regions       |
+Super Bowl weekend      | +20%           | Food Revenue, COGS     | Event driven demand spike          |
+
+---
+
+- Data is a placeholder based on common seasonal patterns.
