@@ -1,0 +1,21 @@
+Ansh Hemang Dani - Validate and Clarify Usefulness
+
+Stakeholder Validation Questions:
+
+Seasonal Periods:
+
+	1. Which months/weeks always spike or dip?
+	2. Which holiday windows matter (before/during/after) and how many weeks wide?
+	3. Do weather patterns (summer heat or winter cold) or non-holiday events (ex. back to school) create predictable changes?
+
+Useful Metrics:
+	
+	1. What metrics do you actually use to plan (total revenue/tickets/items)?
+	2. Do you plan on a monthly/weekly/daily basis?
+	3. Are there any metrics that are useless for you?
+
+Additional:
+
+	1. What one-offs should be excluded from seasonality (ex. promos)?
+	2. Do patterns differ based on store regions or channels?
+	3. When there's +X% sales expected, what changes are made in terms of the staffing/ordering?
