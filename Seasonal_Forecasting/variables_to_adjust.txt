@@ -1,0 +1,18 @@
+Ansh Hemang Dani — Variables to Seasonally Adjust
+
+Identify which variables should be seasonally adjusted to ensure forecasts reflect real-world patterns
+
+---
+
+Decision Matrix 
+
+Variable          | Clear Seasonal Signal   | Business Impact | Data Quality | Method               | Decision     | 
+------------------|-------------------------|-----------------|--------------|----------------------|--------------|
+Revenue: Food     | High (holidays, events) | High            | Good         | STL/ARIMA            | Adjust       |
+Revenue: Beverage | Medium (summer dips)    | Medium          | Good         | STL/ARIMA            | Adjust       |
+COGS: Food        | Mirrors revenue         | Medium          | Good         | Commodity adjust     | Adjust       |
+Staffing Hours    | Medium (holiday shifts) | High            | Mixed        | Optimization         | Adjust       |
+Inventory Turns   | Weak                    | Medium          | Mixed        | Decide Later         | Not now      |
+Marketing Spend   | Campaign-driven         | Low             | Mixed        | Decide Later         | Not now      |
+
+---
