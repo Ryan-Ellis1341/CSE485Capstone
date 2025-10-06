@@ -1,0 +1,20 @@
+Ryan - Identify data displays for output from app.
+	
+	Income Data(By month to display dips and rises):
+		1. Previous revenue
+		2. Specific Product sale info
+
+	Expense Data(By month):
+		1. Payroll & benefits
+		2. Rent
+		3. Utilities
+		4. Insurance
+		5. Taxes(estimate)
+		6. Loans/Credit(Minimum or total)
+		7. Advertising
+
+	Potential Misc.:(Would be covered in Empenses, but potentially have own rollover to income)
+		1. Emergency Fund
+		2. Shipping
+		3. Ordering
+		4. External Storage
