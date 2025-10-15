@@ -1,0 +1,295 @@
+# Headcount Component – Developer Guide
+
+This document explains how the `Headcount` React component works, how it talks to the backend, and how to integrate, test, and extend it.
+
+---
+
+## 1) What this component does
+
+* Displays a **Headcount** admin panel for HR/Finance to manage employee roster entries and bake them into a budget scenario.
+* Provides a JSON editor for a single employee ("Employee JSON") and a **Roster** table fetched from the backend.
+* Offers three main actions:
+
+  1. **Refresh**: Pull the latest roster (`GET /headcount/list`).
+  2. **Upsert**: Create/update one employee entry (`POST /headcount/upsert`).
+  3. **Bake to Budget**: Materialize headcount rows into the budget for a fiscal year + scenario (`POST /headcount/bake_to_budget`).
+
+---
+
+## 2) Where it lives & how to use it
+
+```jsx
+import Headcount from "./components/Headcount";
+
+export default function AdminHeadcountPage() {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL; // e.g., "https://api.example.com"
+  const token = yourAuthToken; // e.g., from context or props
+  return <Headcount api={apiBaseUrl} token={token} />;
+}
+```
+
+**Props**
+
+* `api: string` – Base URL for the backend (e.g., `https://api.example.com`).
+* `token: string` – Bearer or custom token consumed by `makeClient(api, token)`.
+
+**Dependencies**
+
+* `makeClient(api, token)` in `../api` must return an HTTP client with methods `.get()` and `.post()` compatible with Axios-like signatures.
+* TailwindCSS classes are used for styling.
+
+---
+
+## 3) UI structure
+
+```
+<div>
+  <h2>Headcount</h2>
+  ├─ Employee JSON (textarea + Upsert/Refresh buttons)
+  ├─ Roster (table of employees, scrollable)
+  └─ Bake Panel (Fiscal Year, Scenario, Bake to Budget)
+</div>
+```
+
+---
+
+## 4) Component state & lifecycle
+
+**State**
+
+* `rows: any[]` – Current roster fetched from server.
+* `form: HeadcountRow` – JSON for the employee to upsert.
+* `year: number` – Fiscal year for baking (default `2027`).
+* `scenario: string` – Budget scenario label (default `"2027:Base"`).
+* `msg: string` – User message/alerts (errors or success).
+
+**Lifecycle**
+
+* `useEffect(() => { load() }, [])` – On mount, fetch roster from `GET /headcount/list` and store in `rows`.
+
+**Events**
+
+* **JSON change**: Parses textarea value with `JSON.parse` → updates `form` (throws if invalid JSON).
+* **Upsert click**: `POST /headcount/upsert` with `form`, sets `msg`, then calls `load()`.
+* **Refresh click**: Calls `load()` to refetch roster.
+* **Bake click**: `POST /headcount/bake_to_budget` with `{ fiscal_year: year, scenario, apply: true }`, then sets `msg`.
+
+---
+
+## 5) Data model (front-end)
+
+`form` default shape (TypeScript-style for clarity):
+
+```ts
+interface HeadcountRow {
+  emp_id: string;        // e.g., "E100"
+  name: string;          // e.g., "New Hire"
+  dept: string;          // e.g., "Ops"
+  start_month: string;   // YYYY-MM (e.g., "2027-06")
+  annual_salary: number; // e.g., 52000
+  fte: number;           // full-time equivalent, e.g., 1.0
+  raise_month: string;   // YYYY-MM (e.g., "2027-09")
+  raise_pct: number;     // 0–1 fraction (e.g., 0.05 for 5%)
+  benefits_pct: number;  // 0–1 fraction of salary
+  taxes_pct: number;     // 0–1 fraction of salary
+  currency: string;      // e.g., "USD"
+}
+```
+
+**Roster rows** are rendered from `rows` and must at least include: `emp_id`, `name`, `dept`, `start_month`, `annual_salary`.
+
+---
+
+## 6) Backend API contract
+
+> The note in the UI references a "single-file backend (app_super_v3)". Below are the expected endpoints/signatures used by this component.
+
+### 6.1 `GET /headcount/list`
+
+**Response**
+
+```json
+{
+  "rows": [
+    {
+      "emp_id": "E100",
+      "name": "Jane Doe",
+      "dept": "Ops",
+      "start_month": "2027-06",
+      "annual_salary": 52000,
+      "fte": 1.0,
+      "raise_month": "2027-09",
+      "raise_pct": 0.05,
+      "benefits_pct": 0.08,
+      "taxes_pct": 0.076,
+      "currency": "USD"
+    }
+  ]
+}
+```
+
+### 6.2 `POST /headcount/upsert`
+
+**Request body** – a full `HeadcountRow` JSON (see schema above).
+
+**Response** – recommended shape:
+
+```json
+{ "status": "ok", "upserted": 1 }
+```
+
+### 6.3 `POST /headcount/bake_to_budget`
+
+**Request body**
+
+```json
+{ "fiscal_year": 2027, "scenario": "2027:Base", "apply": true }
+```
+
+**Response** – consumed field:
+
+```json
+{ "applied_rows": 12 }
+```
+
+---
+
+## 7) Auth & client
+
+The HTTP client is created per call: `const client = makeClient(api, token)`.
+
+* Ensure `makeClient` attaches the token (headers/cookies) expected by the backend.
+* Typical Axios setup:
+
+  * `baseURL = api`
+  * `Authorization: Bearer ${token}` (or custom)
+  * JSON content-type
+
+---
+
+## 8) Error handling & user feedback
+
+* For **Upsert** and **Bake**, errors are caught and summarized via `setMsg(String(e.response?.data || e.message))`.
+* If the Employee JSON is invalid, `JSON.parse` will throw, breaking onChange. See **Hardening** below for safer parsing.
+* Success paths provide short toasts: `"Saved."` or `"Baked X rows."`.
+
+---
+
+## 9) Hardening suggestions (optional but recommended)
+
+1. **Safer JSON edit**
+
+   * Wrap `JSON.parse` in try/catch and show a validation message instead of throwing during typing.
+2. **Form validation**
+
+   * Guardrails for YYYY-MM fields (`start_month`, `raise_month`).
+   * Clamp percentage fields to `[0, 1]`.
+   * Currency list validation.
+3. **Optimistic UI**
+
+   * After `upsert`, patch `rows` locally before `load()` to reduce flicker.
+4. **Loading states**
+
+   * Add a spinner/disabled state during network calls.
+5. **Error surface**
+
+   * Standardize backend errors to `{ message, details }` and render cleanly.
+
+---
+
+## 10) Styling & accessibility
+
+* Tailwind classes are used (e.g., `bg-white`, `border`, `rounded-xl`, etc.).
+* Labels are present and associated via proximity; for improved a11y, consider `htmlFor` + `id` on inputs.
+* Table uses a simple `<table>`; consider responsive patterns for small screens.
+
+---
+
+## 11) Testing checklist
+
+* **Load**: With an empty DB, `/headcount/list` returns `{ rows: [] }` and the table shows no rows.
+* **Upsert**: Valid row creates/updates; reloading shows the change.
+* **Bake**: Returns `{ applied_rows: N }` and sets message accordingly.
+* **Invalid JSON**: Typing bad JSON in textarea should not crash the page (after hardening).
+* **Auth failure**: 401/403 surfaces a message; no infinite loops.
+
+---
+
+## 12) Common pitfalls
+
+* **Invalid JSON in textarea** breaks the onChange handler.
+* **Missing required fields** in `form` cause 4xx from backend.
+* **Incorrect `api`/`token`** leads to network or 401 errors.
+
+---
+
+## 13) Extending the component
+
+* **More columns**: Add to `<thead>` and `<tbody>` mapping from `rows`.
+* **Search/Filter**: Add state + inputs to filter `rows` locally or via a query param on `/headcount/list`.
+* **Pagination**: If `rows` grows, implement backend paging and a simple pager.
+* **Multiple edits**: Replace JSON textarea with a form or an editable table.
+
+---
+
+## 14) Code walk-through (annotated)
+
+```jsx
+// State
+const [rows, setRows] = useState([]);
+const [form, setForm] = useState(defaultForm);
+const [year, setYear] = useState(2027);
+const [scenario, setScenario] = useState("2027:Base");
+const [msg, setMsg] = useState("");
+
+// Effects
+useEffect(() => { load() }, []);
+
+// Network helpers
+async function load() {
+  const client = makeClient(api, token);
+  const { data } = await client.get('/headcount/list');
+  setRows(data.rows || []);
+}
+
+async function upsert() {
+  try {
+    const client = makeClient(api, token);
+    await client.post('/headcount/upsert', form);
+    setMsg('Saved.');
+    load();
+  } catch (e) {
+    setMsg(String(e.response?.data || e.message));
+  }
+}
+
+async function bake() {
+  try {
+    const client = makeClient(api, token);
+    const { data } = await client.post('/headcount/bake_to_budget', {
+      fiscal_year: year,
+      scenario,
+      apply: true,
+    });
+    setMsg(`Baked ${data.applied_rows} rows.`);
+  } catch (e) {
+    setMsg(String(e.response?.data || e.message));
+  }
+}
+```
+
+---
+
+## 15) Future ideas
+
+* **Scenario compare** (diff between current roster vs baked budget).
+* **CSV import/export** for bulk roster edits.
+* **Role-based access control** to limit who can bake.
+* **Audit logs** showing who upserted/baked what and when.
+
+---
+
+## 16) Notes
+
+* The footer note references endpoints "in the single-file backend (app_super_v3)"—ensure this server exposes the 3 routes above and follows the contracts here.
+* Keep `currency`, `benefits_pct`, and `taxes_pct` aligned with your accounting model.
