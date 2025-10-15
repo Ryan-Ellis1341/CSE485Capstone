@@ -1,0 +1,6 @@
+This React component provides a simple user interface for managing financial or forecasting scenarios through API calls. 
+It allows users to clone an existing scenario with a specified percentage uplift and apply sensitivity adjustments to 
+modify certain account patterns by a given percentage. Using React’s useState for managing form inputs and messages, 
+the component interacts with backend endpoints (/scenario/clone and /scenario/sensitivity) through an authenticated API client created with makeClient. 
+The interface displays input fields for scenario parameters, buttons to trigger the operations, 
+and status messages to inform the user of the result, all styled using Tailwind CSS for a clean and modern look.
