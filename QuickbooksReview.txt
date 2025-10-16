@@ -1,0 +1,12 @@
+This is a description of the Quickbooks linkage in the backend code:
+This code defines a function that connects to the QuickBooks Online (QBO) API to retrieve a company’s Profit and Loss (P&L) report for a given date range. 
+It sends an authenticated GET request using the company ID and bearer token, then parses the JSON response returned by QBO. 
+The function extracts each account’s monthly amounts, skips summary rows, and flattens the nested data into a clean pandas DataFrame with three columns:
+`account`, `month`, and `amount`. The result is an easy-to-analyze table showing how much money each account earned or spent each month within the specified period.
+
+I also researched what Quickbooks is:
+QuickBooks is a popular accounting software developed by Intuit that helps businesses manage their finances. It’s used to track income and expenses, create invoices, 
+handle payroll, manage bills, and generate financial reports like Profit & Loss or Balance Sheets. QuickBooks can connect to bank accounts, automate transaction 
+categorization, and support multiple users. It’s commonly used by small and medium-sized businesses because it simplifies bookkeeping and provides real-time 
+financial insights without needing deep accounting expertise.
+
