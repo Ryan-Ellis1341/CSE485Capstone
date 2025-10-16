@@ -1,0 +1,31 @@
+Wizard and Solver Component Familiarization
+
+The Wizard and Solver components are React interfaces that connect the frontend to the financial planning backend. They let users quickly create baseline budget data and then run or apply goal-seek calculations that adjust revenue and cost assumptions.
+
+Wizard Component:
+The Wizard acts as a quick setup for creating a preset budget. It provides an input form for key business assumptions such as year, average ticket size, daily transactions, labor percentage, and GDP growth. When the user clicks “Create Budget,” the component:
+
+1. Checks the user’s role. Only Admins or Analysts are allowed to create presets; Viewers receive an alert and the “Create Budget” button is disabled.
+2. Builds a JSON payload containing the selected fiscal year, GDP growth, and overrides for average ticket, transactions, and labor percentage.
+3. Sends this payload in a POST request to the backend endpoint /preset/qsr. The backend responds by generating a complete financial dataset for that fiscal year and saving it under a scenario name like 2027:Base.
+4. When the call completes, the component stops the loading animation and triggers the onDone(year) callback passed from its parent (usually App.jsx), so that the main view can refresh and display the new scenario.
+
+In essence, the Wizard is a front-end wrapper for the backend budget-generation routine. It converts a few user inputs into a structured preset that the backend expands into a full monthly financial model.
+
+Solver Component:
+The Solver provides a simple goal-seek tool for optimizing EBITDA (earnings before interest, taxes, depreciation, and amortization). It lets users input a target EBITDA and a search range for testing revenue, cost of goods sold (COGS), and labor percentage adjustments. When a user interacts with the Solver:
+
+1. The interface displays input fields for target EBITDA and search range, and two buttons:
+   - Suggest Levers: runs the solver in read-only mode.
+   - Apply to Scenario: applies the recommended adjustments to the active scenario, enabled only for Admins or Analysts.
+2. On clicking Suggest Levers, the component sends a POST request to /solver/goal_seek with parameters for the scenario name, target EBITDA, and search range. The backend evaluates multiple lever combinations and returns the one that brings EBITDA closest to the target.
+3. On clicking Apply to Scenario, the component repeats the request with apply: true. If permitted, the backend updates the scenario data in its in-memory budget store using the best lever adjustments.
+4. The returned JSON object includes the best EBITDA, lever percentages for revenue/COGS/labor, absolute error from the target, and an “applied_to” field if changes were saved. The component then displays these results in a summary card on screen.
+
+In short, Solver gives users an interactive way to tune budget assumptions to hit a financial target. It performs the front-end orchestration of the backend’s search algorithm and reflects the results immediately in the UI.
+
+Together, Wizard and Solver form the setup and optimization stages of the budgeting workflow:
+- Wizard initializes or resets a baseline scenario by calling the backend’s preset generator.
+- Solver analyzes and optionally modifies that scenario to align projected EBITDA with management goals.
+
+These components encapsulate the frontend logic for budget creation and adjustment while relying on backend endpoints to perform all financial computations and data storage.
