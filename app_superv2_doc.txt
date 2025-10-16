@@ -1,0 +1,85 @@
+app_superv2.py (Backend and Dashboard Documentation)
+
+How to Run
+
+1. Install dependencies:
+python -m venv venv
+source venv/bin/activate      # or venv\Scripts\activate on Windows
+pip install fastapi uvicorn pandas numpy statsmodels scikit-learn python-pptx plotly dash python-multipart
+
+2. Run the app:
+uvicorn app_superv2:api --reload --port 8000
+
+3. Access:
+API Docs: http://127.0.0.1:8000/docs
+Dashboard: http://127.0.0.1:8000/dashboard
+Health Check: http://127.0.0.1:8000/health
+
+
+Architecture Overview
+
+app_superv2.py is a single-file prototype that merges a FastAPI backend and a Plotly Dash dashboard. It uses Pandas for in-memory data management and exposes multiple API endpoints for financial planning and analysis workflows. The Dash interface connects directly to the same in-memory data and functions, allowing full CRUD, forecasting, and reporting in one script.
+
+
+Main Sections of the Code
+
+1. Imports and Constants – Imports all required libraries and defines key constants (years, accounts, departments, currency).
+2. Global In-Memory Stores - Holds runtime data:
+   - actuals_df – actual performance data
+   - budgets – multiple budget scenarios
+   - versions – saved snapshots
+   - fx_rates – exchange rate table
+   - audit_log – event history
+3. Authentication and Role Helpers – Provides token-based authentication and role checking using FastAPI’s HTTPBearer.
+4. Utility Functions – Small helpers for period conversion, string handling, etc.
+5. Financial Helper Functions – Main logic for conversion, variance analysis, KPI creation, and forecasting.
+6. Endpoints – REST endpoints for all FP&A operations (budgeting, forecasting, versioning, BvA, and report exports).
+7. Dashboard Setup – Creates the Dash UI and connects it to backend data through callbacks.
+8. Startup Section – Seeds example data and exposes the FastAPI api instance.
+
+
+In-Memory Data Model
+
+actuals_df: pandas DataFrame that holds monthly actual data by account, month, department, and currency.
+budgets: dictionary of pandas DataFrames storing budget scenarios, keyed by "year:scenario".
+versions: dictionary of dictionaries storing snapshots of versions for restoring or audit history.
+fx_rates: pandas DataFrame of monthly FX rates for base and quote currency conversions.
+audit_log: list of dictionaries that logs user actions such as imports or saves.
+
+
+Important Helper Functions
+
+convert_fx(df, func_ccy) – merges df with FX rates and adds a functional currency column.
+kpi_summary(df) – aggregates financial data into KPIs such as Revenue, COGS, EBITDA, and Gross Margin%.
+compute_bva(actuals, budget) – calculates budget versus actual variance for each account and month.
+ai_variance_narrative(bva_df) – generates a simple text explanation of major variances.
+forecast_arima(series, steps) – creates short-term forecasts using ARIMA models.
+forecast_ml(series, steps) – uses a linear regression lag model for alternative forecasting.
+
+
+Dashboard Internals
+
+The Plotly Dash dashboard is mounted at /dashboard and visualizes financial performance interactively.
+
+Key Components:
+- Year and Scenario Dropdowns: allow selection of data year and scenario.
+- KPI Cards: show Revenue, EBITDA, and Gross Margin percentage.
+- Trend Chart: line chart for key metrics by month.
+- YoY Bar Chart: compares current vs previous year results.
+- Waterfall Chart: displays budget-to-actual variance bridge.
+- Heatmap: shows variance percentage by account and month.
+- Callbacks: triggered when filters change to recompute and update all charts.
+
+
+Authentication and Roles
+
+The file implements a simple token-based system using FastAPI’s HTTPBearer.
+
+Roles and Tokens:
+- Admin: admin-token (full access)
+- Analyst: analyst-token (modify data, run forecasts)
+- Viewer: viewer-token (read-only access)
+
+
+This single-file app demonstrates how backend APIs, data analysis, and an interactive dashboard can exist in one project.
+It is designed for teaching and prototypes — lightweight, modular, and easy to extend into a production-grade system with a database and secure authentication.
