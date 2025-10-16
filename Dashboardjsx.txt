@@ -1,0 +1,5 @@
+After reading through the Dashboard.jsx file  I have understood that it is basically a web dashboard that shows the financial performance. 
+You can also see snippets where it is connecting to an API and fetching information and then displaying said information. 
+One thing it fetches from the API is a basic financial summary of the business. 
+It also uses AI to predict potential future revenue and then displays that prediction. 
+To summarize the file essentially creates a neat dashboard that displays live information in an organized manner
