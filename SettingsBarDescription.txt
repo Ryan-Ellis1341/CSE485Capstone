@@ -1,0 +1,1 @@
+SettingsBar is a small settings panel that allows a user to configure two key values- an API Base URL and a Bearer Token. 
