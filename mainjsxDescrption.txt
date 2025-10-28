@@ -1,0 +1,6 @@
+This is the entry point of a React application, the main file that starts and renders the whole app into the browser. 
+The first code line imports the React library, which is needed to use JSX. The second line imports the createRoot function from React DOM.
+It replaces the older ReactDOM.render() and is used to render the React app into the web page.
+The third line imports BrowserRouter from the React Router library. This component enables client-side routing, allowing the app to have multiple pages (URLs) 
+without reloading the page. The fourth line imports the main App component from another file. The fifth line imports the styles.css component.
+This file sets up React to render your main app component, and gives the app routing support.
