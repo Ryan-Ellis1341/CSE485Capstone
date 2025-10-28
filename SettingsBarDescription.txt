@@ -1,1 +1,4 @@
-SettingsBar is a small settings panel that allows a user to configure two key values- an API Base URL and a Bearer Token. 
+The component acts as a simple configuration bar where users can:
+1. Input or update the API base URL.
+2. Input or update their authentication token.
+The parent component (which owns the api and token states) would then use these values to make API calls or manage authentication.
