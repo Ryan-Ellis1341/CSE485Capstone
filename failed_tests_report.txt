@@ -1,0 +1,29 @@
+Test suites ran - 
+
+I ran the tests found in the uploaded project:
+
+test_api.py (from fpna_fullstack_v2-2) Ñ FAILED
+
+test_endpoints.py (from fpna_backend_final) Ñ PASSED
+
+test_v3.py (from fpna_fullstack_v3) Ñ PASSED
+
+test_migrations.py (from fpna_fullstack_v3_1_migrations) Ñ PASSED
+
+Failed test details:
+
+test_api.py Ñ failing test
+
+Failing test: fpna_fullstack_v2-2/backend/tests/test_api.py::test_bva_viewer_allowed
+
+Error message:
+
+KeyError: 'amount'
+
+Interpretation:
+
+The test attempted to access a key/column named 'amount' in a pandas DataFrame (or similar mapping) but that column does not exist in the data produced during the test run. 
+
+Likely causes are:
+
+The code now produces a different schema (for example columns like amount_actual / amount_budget instead of amount), the test's fixture / golden data no longer contains amount, or a transformation step removed/renamed the column unintentionally.
