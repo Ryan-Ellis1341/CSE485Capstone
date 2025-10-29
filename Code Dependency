@@ -1,0 +1,15 @@
+These are the follwoing dependencies for the backend:
+fastapi
+uvicorn
+pandas
+numpy
+statsmodels
+scikit-learn
+python-pptx
+python-multipart
+
+For the front end you will need:
+Node.js -- this needs to be installed 
+react
+react-dom
+recharts
