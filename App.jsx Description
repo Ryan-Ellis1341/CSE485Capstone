@@ -1,0 +1,6 @@
+App.jsx -- Description (Maaz Naqvi)
+App.jsx is essential the central control hub of the frontend. It provides the whole application a general structure. 
+  It imports and organizes other components such as Dashboard, Solver, and Headcount. 
+  It creates a unity between all the components and is the backbone of the front end architecture. 
+  It also creates a display where you can navigate between features. 
+  Overall it establish a general structure utilizes a multiple components to allow the user to utilize different features.
