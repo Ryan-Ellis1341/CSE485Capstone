@@ -1,0 +1,7 @@
+COA Explorer Page Overview
+
+The COA (Chart of Accounts) Explorer page serves as a central interface for viewing, navigating, and managing an organization’s financial account structure within the AI-Driven Budgeting Suite. It enables users to explore the hierarchical layout of all accounts including assets, liabilities, equity, revenues, and expenses, providing an organized foundation for the system’s budgeting, forecasting, and reporting features.
+
+This page allows users to search, filter, and drill down into individual accounts to review their details, related transactions, and associated budget categories. By integrating directly with the suite’s budgeting and analytics modules, the COA Explorer ensures that every financial entry and forecast aligns with the correct account classification. It also supports cross-referencing with dynamic dashboards, variance reports, and AI-generated insights, giving users a clear picture of how specific accounts influence overall financial performance.
+
+Ultimately, the COA Explorer page is designed to make account management intuitive, transparent, and tightly integrated with the platform’s intelligent budgeting and forecasting capabilities, serving as the backbone for accurate, real-time financial data organization within the broader Accounting AI ecosystem.
