@@ -1,0 +1,6 @@
+There is only one failing test suite — an older fullstack version, indicating backward-compatibility or schema mismatch issues. 
+Test File-> test_api.py
+Failed test-> test_bva_viewer_allowed
+Part of module-> fpna_fullstack_v2-2
+Error-> KeyError: 'amount'
+Likely category-> Schema mismatch
