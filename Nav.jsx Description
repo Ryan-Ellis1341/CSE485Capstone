@@ -1,0 +1,5 @@
+This file helps defind the navigation bars of the page.
+It enables the user to seamlessly navigate through the 
+pages allowing the user to access the variety of the different
+functiolitie the web application provides. It uses a React 
+router in order to travel throught th pages.
