@@ -1,0 +1,12 @@
+This React component provides a small frontend interface for interacting with backend API endpoints that let you retrieve and submit Excel-style data.
+The following is a breakdown of the functionality of the code:
+Feature	        |Description
+Retrieve	      |Sends POST /excel/retrieve with year, scenario, and accounts JSON; populates rows.
+Submit	        |Sends POST /excel/submit with scenario and modified rows.
+Error Handling	|Displays errors from server or exceptions in msg.
+UI	            |Inputs + JSON textarea with Tailwind styling.
+There are no explicit errors in this code, but here are some minor potential risks I have identified:
+Issue	                                                          |Risk	                                         |Suggestion
+JSON.parse(accounts) and JSON.parse(e.target.value) can throw	  |Crashes component if invalid JSON entered	   |Wrap in try/catch and show friendly message
+rows editing directly via JSON	                                |Not user-friendly	                           |Optionally display in table form instead
+No loading indicator	                                          |User may think nothing is happening	         |Add a loading state and show spinner
