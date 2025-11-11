@@ -1,0 +1,4 @@
+On the versions Page there seems to be two errors with both the list and save button.I am finding an error where it shows:
+ INFO:     127.0.0.1:55933 - "OPTIONS /versions/list?scenario=2027:Base HTTP/1.1" 405 Method Not Allowed
+This type of error usually means that you are using the right Url but the wrong method meaning instead of get it is using post.
+The above error was for the list button but you receive the exact same error with the save button. I believe a possible solution to this problem is just changing the method.
