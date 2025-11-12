@@ -1,0 +1,13 @@
+Frontend Component	       | Frontend File	  | HTTP Method	      | Endpoint Path	              | Backend Handler	       |
+Dashboard                  | Dashboard.jsx    | POST              | /bva/analyze                | analyze_bva()          | 
+Headcount                  | Headcount.jsx    | GET               | /headcount/list             | list_headcount()       |
+Headcount                  | Headcount.jsx    | POST              | /headcount/upsert           | upsert_headcount()     | 
+Headcount                  | Headcount.jsx    | POST              | /headcount/bake_to_budget   | bake_to_budget()       |
+Solver                     | Solver.jsx       | POST              | /solver/goal_seek           | solver_goal_seek()     |
+Scenarios                  | Scenarios.jsx    | POST              | /scenario/clone             | scenario_clone()       |
+Scenarios                  | Scenarios.jsx    | POST              | /scenario/sensitivity       | scenario_sensitivity() |
+Versions                   | Versions.jsx     | POST              | /versions/save              | versions_save()        |
+Versions                   | Versions.jsx     | POST              | /versions/restore           | versions_restore()     |
+Versions                   | Versions.jsx     | GET               | /versions/list              | versions_list()        |
+ExcelIO	                   | ExcelIO.jsx	    | POST	            | /excel/retrieve	            | excel_retrieve()	     |
+ExcelIO	                   | ExcelIO.jsx	    | POST	            | /excel/submit	              | excel_submit()	       | 
